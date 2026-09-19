@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: Input validation (Python ${{ matrix.python }})
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Compile Python
+        run: python -m compileall -q bin scripts tests
+
+  integration:
+    name: Real tools (Docker)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      NXF_VER: '24.10.6'
+      NXF_ANSI_LOG: 'false'
+      NXF_OPTS: '-Xms256m -Xmx1g'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install pinned Nextflow distribution
+        run: |
+          mkdir -p "$RUNNER_TEMP/seqforge-tools"
+          curl --fail --silent --show-error --location --retry 3 \
+            "https://github.com/nextflow-io/nextflow/releases/download/v${NXF_VER}/nextflow-${NXF_VER}-dist" \
+            -o "$RUNNER_TEMP/seqforge-tools/nextflow"
+          echo "12c1bd22b4385c3256f291f03b3d2406dbd3a9020a63d03b5bdf63dff6659fe4  $RUNNER_TEMP/seqforge-tools/nextflow" | sha256sum --check
+          chmod +x "$RUNNER_TEMP/seqforge-tools/nextflow"
+          echo "$RUNNER_TEMP/seqforge-tools" >> "$GITHUB_PATH"
+      - name: Build locked tool image
+        run: docker build -t seqforge-ngs:0.1.0-dev .
+      - name: Generate synthetic fixture
+        run: python3 scripts/make_test_data.py
+      - name: Verify filtering boundaries and missing values
+        run: |
+          docker run --rm -v "$PWD:$PWD" -w "$PWD" \
+            --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
+            -c 'python tests/check_filter.py'
+      - name: Validate samplesheet failure behavior
+        run: python3 tests/check_samplesheets.py --nextflow nextflow
+      - name: Execute real workflow
+        run: nextflow run main.nf -profile test,docker -ansi-log false
+      - name: Check variants, genotypes, alignments, and reports
+        run: |
+          docker run --rm -v "$PWD:$PWD" -w "$PWD" \
+            --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
+            -c 'python tests/assert_integration.py'
+      - name: Verify resume
+        run: |
+          nextflow run main.nf -profile test,docker -ansi-log false -resume
+          docker run --rm -v "$PWD:$PWD" -w "$PWD" \
+            --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
+            -c 'python tests/assert_integration.py --resumed'
+      - name: Preserve QC and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seqforge-integration-evidence
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            results-test/reports/
+            results-test/pipeline_info/
+            tests/data/provenance.json
+            .nextflow.log
+            work/**/.command.err
+            work/**/.command.log

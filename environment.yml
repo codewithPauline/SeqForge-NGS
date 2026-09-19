@@ -1,0 +1,13 @@
+name: seqforge-ngs
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11.11
+  - fastqc=0.12.1
+  - fastp=0.23.4
+  - bwa-mem2=2.2.1
+  - samtools=1.21
+  - bcftools=1.21
+  - gatk4=4.6.1.0
+  - multiqc=1.25.2

@@ -1,0 +1,9 @@
+.nextflow*
+work/
+results*/
+tests/data/
+*.sif
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
