@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
+  - procps-ng=4.0.4
   - python=3.11.11
   - fastqc=0.12.1
   - fastp=0.23.4

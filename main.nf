@@ -56,16 +56,16 @@ Details: README.md and docs/usage.md
         .mix(BAM_QC.out.qc.map { id, stats, flagstat -> [stats, flagstat] })
         .mix(ALIGN_MARKDUP.out.metrics.map { id, f -> f })
         .mix(FILTER_VARIANTS.out.stats.map { id, f -> f })
-        .collect()
+        .collect(sort: true)
     MULTIQC(qc_files)
     summaries = FASTP.out.json.join(BAM_QC.out.qc).join(FILTER_VARIANTS.out.stats)
         .map { id, fastp, stats, flagstat, variants -> [fastp, stats, flagstat, variants] }
-        .collect()
+        .collect(sort: true)
     versions = PREPARE_REFERENCE.out.versions.mix(CHECK_FASTQ.out.versions)
         .mix(FASTQC.out.versions).mix(FASTP.out.versions)
         .mix(ALIGN_MARKDUP.out.versions).mix(BAM_QC.out.versions)
         .mix(HAPLOTYPECALLER.out.versions).mix(FILTER_VARIANTS.out.versions)
-        .mix(MULTIQC.out.versions).collect()
+        .mix(MULTIQC.out.versions).collect(sort: true)
     RUN_SUMMARY(summaries, versions, PREPARE_REFERENCE.out.metadata,
         workflow.manifest.version, workflow.nextflow.version.toString(),
         params.min_qual, params.min_depth)

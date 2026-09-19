@@ -5,6 +5,8 @@ RUN micromamba install --yes --name base --file /tmp/environment-linux-64.lock &
 # Nextflow starts a non-login shell and overrides the image entrypoint.
 ENV PATH=/opt/conda/bin:$PATH
 USER root
+# Fail during image construction if Nextflow's metrics dependency is missing.
+RUN ps --version
 WORKDIR /data
 LABEL org.opencontainers.image.title="SeqForge-NGS" \
       org.opencontainers.image.source="https://github.com/codewithPauline/SeqForge-NGS" \
