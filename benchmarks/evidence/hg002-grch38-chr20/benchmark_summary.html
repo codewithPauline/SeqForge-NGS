@@ -1,0 +1,102 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SeqForge-NGS benchmark</title><style>body{font-family:system-ui,sans-serif;margin:0;background:#f5f7fa;color:#193245}
+main{max-width:1180px;margin:48px auto;padding:0 28px}h1{font-size:40px}p,li{line-height:1.65}.card{background:white;padding:24px;border:1px solid #d7e1e8;border-radius:12px;overflow:auto}
+table{width:100%;border-collapse:collapse;text-align:left}th,td{padding:12px;border-bottom:1px solid #e1e8ee}th{font-size:12px;color:#526c80}.label{color:#087e83;font-weight:700}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}</style>
+<main><p class="label">REGIONAL CALLING AND FILTERING BENCHMARK</p><h1>SeqForge-NGS</h1><p>HG002 · GRCh38 no-alt analysis set (GCA_000001405.15) · chr20:10,000,001–11,000,000</p>
+<div class="card"><table><thead><tr><th>Type</th><th>TP baseline</th><th>TP call</th><th>FP</th><th>FN</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead><tbody><tr><td>ALL</td><td>1578.0</td><td>1591.0</td><td>14.0</td><td>10.0</td><td>99.128%</td><td>99.370%</td><td>99.249%</td></tr><tr><td>SNP</td><td>1352.0</td><td>1353.0</td><td>5.0</td><td>2.0</td><td>99.632%</td><td>99.852%</td><td>99.742%</td></tr><tr><td>INDEL</td><td>226.0</td><td>238.0</td><td>9.0</td><td>8.0</td><td>96.356%</td><td>96.581%</td><td>96.469%</td></tr></tbody></table></div>
+<p>All scored PASS calls at the preset filter thresholds. N/A means the metric has no denominator.</p><h2>Scope and limitations</h2><ul><li>One selected genomic region and one sample; not a genome-wide accuracy estimate.</li><li>Starts from existing alignments; SeqForge FASTQ QC, trimming, alignment, and duplicate marking are not evaluated.</li><li>Baseline QUAL/depth filter; no BQSR or threshold tuning in this case study.</li><li>Variant-type counts follow RTG classification and baseline rescaling and may not partition complex variants.</li></ul><details><summary>Provenance and complete metrics</summary><pre>{
+  &quot;schema_version&quot;: 1,
+  &quot;benchmark_id&quot;: &quot;hg002-grch38-chr20-10m-11m&quot;,
+  &quot;sample&quot;: &quot;HG002&quot;,
+  &quot;scope&quot;: &quot;calling_and_filtering_from_public_prealigned_bam&quot;,
+  &quot;assembly&quot;: &quot;GRCh38 no-alt analysis set (GCA_000001405.15)&quot;,
+  &quot;truth_release&quot;: &quot;GIAB v4.2.1&quot;,
+  &quot;scoring_region&quot;: {
+    &quot;chrom&quot;: &quot;chr20&quot;,
+    &quot;start&quot;: 10000000,
+    &quot;end&quot;: 11000000,
+    &quot;coordinate_system&quot;: &quot;0-based half-open&quot;
+  },
+  &quot;calling_region&quot;: {
+    &quot;chrom&quot;: &quot;chr20&quot;,
+    &quot;start&quot;: 9990000,
+    &quot;end&quot;: 11010000
+  },
+  &quot;evaluated_bases&quot;: 977839,
+  &quot;alignment_records&quot;: 267154,
+  &quot;filter&quot;: {
+    &quot;min_qual&quot;: 30,
+    &quot;min_sample_depth&quot;: 10
+  },
+  &quot;engine&quot;: &quot;RTG vcfeval 3.12.1; diploid genotype matching; transborder matches allowed&quot;,
+  &quot;metric_definition&quot;: &quot;RTG weighted ROC counts, with baseline rescaling for variant-type subsets. Final all-PASS point; no best-F1 threshold selection.&quot;,
+  &quot;metrics&quot;: {
+    &quot;ALL&quot;: {
+      &quot;truth_total&quot;: 1588.0,
+      &quot;query_total&quot;: 1605.0,
+      &quot;tp_baseline&quot;: 1578.0,
+      &quot;tp_call&quot;: 1591.0,
+      &quot;fp&quot;: 14.0,
+      &quot;fn&quot;: 10.0,
+      &quot;precision&quot;: 0.9912772585669782,
+      &quot;recall&quot;: 0.9937027707808564,
+      &quot;f1&quot;: 0.9924885327674466,
+      &quot;lowest_included_qual&quot;: &quot;39.640&quot;,
+      &quot;operating_point&quot;: &quot;all_scored_PASS_calls&quot;
+    },
+    &quot;SNP&quot;: {
+      &quot;truth_total&quot;: 1354.0,
+      &quot;query_total&quot;: 1358.0,
+      &quot;tp_baseline&quot;: 1352.0,
+      &quot;tp_call&quot;: 1353.0,
+      &quot;fp&quot;: 5.0,
+      &quot;fn&quot;: 2.0,
+      &quot;precision&quot;: 0.9963181148748159,
+      &quot;recall&quot;: 0.9985228951255539,
+      &quot;f1&quot;: 0.9974192865933219,
+      &quot;lowest_included_qual&quot;: &quot;39.640&quot;,
+      &quot;operating_point&quot;: &quot;all_scored_PASS_calls&quot;
+    },
+    &quot;INDEL&quot;: {
+      &quot;truth_total&quot;: 234.0,
+      &quot;query_total&quot;: 247.0,
+      &quot;tp_baseline&quot;: 226.0,
+      &quot;tp_call&quot;: 238.0,
+      &quot;fp&quot;: 9.0,
+      &quot;fn&quot;: 8.0,
+      &quot;precision&quot;: 0.9635627530364372,
+      &quot;recall&quot;: 0.9658119658119658,
+      &quot;f1&quot;: 0.9646860483885431,
+      &quot;lowest_included_qual&quot;: &quot;83.600&quot;,
+      &quot;operating_point&quot;: &quot;all_scored_PASS_calls&quot;
+    }
+  },
+  &quot;provenance&quot;: {
+    &quot;prepared_json_sha256&quot;: &quot;f31f50a625dbc48e25d29879e97831068c44e6bccd0ea6bc4f90eb8f31a542c3&quot;,
+    &quot;query_vcf_sha256&quot;: &quot;7430c86f78c649deb321263c4387d2d7df014a2d5e045b4fceec58113c583f78&quot;,
+    &quot;source_files&quot;: {
+      &quot;benchmark.nf&quot;: &quot;9f7df0a2d697aa972dbbcab6879956f74308a71c6829a3ac48406b4a9f1cc970&quot;,
+      &quot;nextflow.config&quot;: &quot;0778293ae0f4c0ceff817dd7b2ea442c2972b4b1719241d3ec4f4f209ec330d1&quot;,
+      &quot;modules/variants.nf&quot;: &quot;40f49bbf8c68834f229164f0bcfdcfd202a351954a68493d0ed70b34245caca4&quot;,
+      &quot;modules/benchmark.nf&quot;: &quot;9cfdf61e73bea2544438db507e3eb988a0ce0aa4da45cd55af679ac0a80b366a&quot;,
+      &quot;bin/filter_variants.sh&quot;: &quot;bc5341febf18eae86a0d666c321b541267ce51bf7e611c94556843c4ee22321f&quot;,
+      &quot;bin/verify_benchmark.py&quot;: &quot;81341af083db911c5aa183f74abeeb20f652ecceba2d0c118a3bd1232796f7c5&quot;,
+      &quot;bin/benchmark_io.py&quot;: &quot;dc9132cc0ffe78d9280d29db8745490e317a7e8ffab962ce92e3b52dc31ae67e&quot;,
+      &quot;bin/benchmark_report.py&quot;: &quot;d7fd8d129edf99479f9595e4a929e7e33cd260ea5a93f8c902f7aebc0a9081d0&quot;,
+      &quot;scripts/prepare_benchmark.py&quot;: &quot;32fdcf6f9efd1c17fc81bebc5857d52e1009c901e6c9636e98de6920522d0f3c&quot;,
+      &quot;environment-linux-64.lock&quot;: &quot;19a362c6cab0e6425075cabe506a501d8defce3e59a24411094cef8592c3b9d5&quot;
+    },
+    &quot;software_versions&quot;: {
+      &quot;HG002.bcftools.versions.txt&quot;: &quot;bcftools 1.21\nUsing htslib 1.24\nCopyright (C) 2024 Genome Research Ltd.\nLicense GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.&quot;,
+      &quot;HG002.gatk.versions.txt&quot;: &quot;Using GATK jar /workspace/scratch/8c57b1190b28/tools/seqforge-env/share/gatk4-4.6.1.0-0/gatk-package-4.6.1.0-local.jar\nRunning:\n    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /workspace/scratch/8c57b1190b28/tools/seqforge-env/share/gatk4-4.6.1.0-0/gatk-package-4.6.1.0-local.jar --version\nThe Genome Analysis Toolkit (GATK) v4.6.1.0\nHTSJDK Version: 4.1.3\nPicard Version: 3.3.0&quot;,
+      &quot;rtg_compare.versions.txt&quot;: &quot;Product: RTG Tools 3.12.1\nCore Version: 1581c65779 (2021-05-20)\nRAM: 12.6GB of 14.0GB RAM can be used by rtg (90%)\nCPU: Defaulting to 9 of 9 available processors (100%)\nJVM: OpenJDK 64-Bit Server VM 17.0.18-internal\nLicense: No license file required\nContact: support@realtimegenomics.com\n\nPatents / Patents pending:\nUS: 7,640,256, 9,165,253, 13/129,329, 13/681,046, 13/681,215, 13/848,653, 13/925,704, 14/015,295, 13/971,654, 13/971,630, 14/564,810\nUK: 1222923.3, 1222921.7, 1304502.6, 1311209.9, 1314888.7, 1314908.3\nNew Zealand: 626777, 626783, 615491, 614897, 614560\nAustralia: 2005255348, Singapore: 128254\n\nCitation (variant calling):\nJohn G. Cleary, Ross Braithwaite, Kurt Gaastra, Brian S. Hilbush, Stuart Inglis, Sean A. Irvine, Alan Jackson, Richard Littin, Sahar Nohzadeh-Malakshah, Mehul Rathod, David Ware, Len Trigg, and Francisco M. De La Vega. \&quot;Joint Variant and De Novo Mutation Identification on Pedigrees from High-Throughput Sequencing Data.\&quot; Journal of Computational Biology. June 2014, 21(6): 405-419. doi:10.1089/cmb.2014.0029.\n\nCitation (vcfeval):\nJohn G. Cleary, Ross Braithwaite, Kurt Gaastra, Brian S. Hilbush, Stuart Inglis, Sean A. Irvine, Alan Jackson, Richard Littin, Mehul Rathod, David Ware, Justin M. Zook, Len Trigg, and Francisco M. De La Vega. \&quot;Comparing Variant Call Files for Performance Benchmarking of Next-Generation Sequencing Variant Calling Pipelines.\&quot; bioRxiv, 2015. doi:10.1101/023754.\n\n(c) Real Time Genomics, 2009-2026&quot;,
+      &quot;rtg_format.versions.txt&quot;: &quot;Product: RTG Tools 3.12.1\nCore Version: 1581c65779 (2021-05-20)\nRAM: 12.6GB of 14.0GB RAM can be used by rtg (90%)\nCPU: Defaulting to 9 of 9 available processors (100%)\nJVM: OpenJDK 64-Bit Server VM 17.0.18-internal\nLicense: No license file required\nContact: support@realtimegenomics.com\n\nPatents / Patents pending:\nUS: 7,640,256, 9,165,253, 13/129,329, 13/681,046, 13/681,215, 13/848,653, 13/925,704, 14/015,295, 13/971,654, 13/971,630, 14/564,810\nUK: 1222923.3, 1222921.7, 1304502.6, 1311209.9, 1314888.7, 1314908.3\nNew Zealand: 626777, 626783, 615491, 614897, 614560\nAustralia: 2005255348, Singapore: 128254\n\nCitation (variant calling):\nJohn G. Cleary, Ross Braithwaite, Kurt Gaastra, Brian S. Hilbush, Stuart Inglis, Sean A. Irvine, Alan Jackson, Richard Littin, Sahar Nohzadeh-Malakshah, Mehul Rathod, David Ware, Len Trigg, and Francisco M. De La Vega. \&quot;Joint Variant and De Novo Mutation Identification on Pedigrees from High-Throughput Sequencing Data.\&quot; Journal of Computational Biology. June 2014, 21(6): 405-419. doi:10.1089/cmb.2014.0029.\n\nCitation (vcfeval):\nJohn G. Cleary, Ross Braithwaite, Kurt Gaastra, Brian S. Hilbush, Stuart Inglis, Sean A. Irvine, Alan Jackson, Richard Littin, Mehul Rathod, David Ware, Justin M. Zook, Len Trigg, and Francisco M. De La Vega. \&quot;Comparing Variant Call Files for Performance Benchmarking of Next-Generation Sequencing Variant Calling Pipelines.\&quot; bioRxiv, 2015. doi:10.1101/023754.\n\n(c) Real Time Genomics, 2009-2026&quot;
+    }
+  },
+  &quot;limitations&quot;: [
+    &quot;One selected genomic region and one sample; not a genome-wide accuracy estimate.&quot;,
+    &quot;Starts from existing alignments; SeqForge FASTQ QC, trimming, alignment, and duplicate marking are not evaluated.&quot;,
+    &quot;Baseline QUAL/depth filter; no BQSR or threshold tuning in this case study.&quot;,
+    &quot;Variant-type counts follow RTG classification and baseline rescaling and may not partition complex variants.&quot;
+  ]
+}</pre></details></main></html>

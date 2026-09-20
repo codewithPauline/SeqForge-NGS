@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'benchmark/**']
   pull_request:
   workflow_dispatch:
 
@@ -62,6 +62,11 @@ jobs:
           docker run --rm -v "$PWD:$PWD" -w "$PWD" \
             --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
             -c 'python tests/check_filter.py'
+      - name: Verify haplotype matching, genotypes, and confident regions
+        run: |
+          docker run --rm -v "$PWD:$PWD" -w "$PWD" \
+            --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
+            -c 'python tests/check_rtg.py'
       - name: Validate samplesheet failure behavior
         run: python3 tests/check_samplesheets.py --nextflow nextflow
       - name: Execute real workflow
@@ -77,6 +82,21 @@ jobs:
           docker run --rm -v "$PWD:$PWD" -w "$PWD" \
             --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
             -c 'python tests/assert_integration.py --resumed'
+      - name: Prepare caller benchmark fixture
+        run: |
+          docker run --rm -v "$PWD:$PWD" -w "$PWD" \
+            --entrypoint /bin/bash seqforge-ngs:0.1.0-dev \
+            -c 'python tests/make_benchmark_fixture.py'
+      - name: Execute and verify benchmark workflow
+        run: |
+          nextflow run benchmark.nf -profile docker \
+            --benchmark_data benchmark-data/ci --outdir results-benchmark-test \
+            --max_cpus 2 --calling_memory '3 GB' -ansi-log false
+          python3 tests/assert_benchmark.py
+          nextflow run benchmark.nf -profile docker \
+            --benchmark_data benchmark-data/ci --outdir results-benchmark-test \
+            --max_cpus 2 --calling_memory '3 GB' -ansi-log false -resume
+          python3 tests/assert_benchmark.py --resumed
       - name: Preserve QC and diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -88,6 +108,8 @@ jobs:
           path: |
             results-test/reports/
             results-test/pipeline_info/
+            results-benchmark-test/benchmark/
+            results-benchmark-test/pipeline_info/
             tests/data/provenance.json
             .nextflow.log
             work/**/.command.err

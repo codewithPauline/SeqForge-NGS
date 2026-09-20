@@ -1,4 +1,6 @@
-# Validation: software behavior first, human accuracy next
+# Validation: software behavior and a regional human benchmark
+
+The first HG002 calling/filtering benchmark is complete. See the [measured results](../benchmarks/evidence/hg002-grch38-chr20/README.md) and [reproduction instructions](benchmark.md). The protocol below records the broader acceptance criteria. Full FASTQ-to-VCF human benchmarking remains future work.
 
 ## What the current fixture establishes
 
@@ -8,9 +10,9 @@ The integration checker verifies exact expected PASS variants and genotypes, sam
 
 These checks establish particular software behaviors on a simple input. They do not estimate performance on human reads, difficult regions, sequencing errors, or indels. Do not present the synthetic fixture as GIAB validation or turn its two successful calls into biological precision/recall claims.
 
-## HG002 benchmark acceptance plan
+## HG002 benchmark acceptance criteria
 
-The next milestone will use public HG002 Illumina paired-end reads with a matching GIAB small-variant benchmark and confident-region BED. Before downloading or reporting results, record:
+HG002 analyses require matching GIAB truth and confident regions. The completed regional benchmark starts from public alignments; future raw-read benchmarks will additionally evaluate upstream stages. Record:
 
 | Resource | Required provenance |
 |---|---|
@@ -25,6 +27,6 @@ Align reads to the full selected reference. Restrict evaluation to a documented 
 
 Use a haplotype-aware benchmark tool to compare variants and genotypes. Simple coordinate overlap or `bcftools isec` alone is not sufficient for equivalent indel representations. Report SNP and INDEL results separately and retain the benchmark engine's original TP/FP/FN definitions, precision, recall, and F1 summaries.
 
-No results table will be marked complete until source manifests, commands, benchmark outputs, and scope limitations are committed together. Threshold selection and final evaluation should use different regions or samples to avoid reporting tuned performance as independent validation.
+Results require source manifests, commands, benchmark outputs, and scope limitations committed together. The current case study supplies those artifacts and uses preset thresholds. Future threshold selection and final evaluation should use different regions or samples to avoid reporting tuned performance as independent validation.
 
-Starting resource index: [Genome in a Bottle data indexes](https://github.com/genome-in-a-bottle/giab_data_indexes). Exact dataset URLs and versions remain to be selected and verified.
+Starting resource index: [Genome in a Bottle data indexes](https://github.com/genome-in-a-bottle/giab_data_indexes). Selected URLs, object generations, sizes, and MD5 checksums are recorded in the [HG002 manifest](../benchmarks/hg002-grch38-chr20.json).

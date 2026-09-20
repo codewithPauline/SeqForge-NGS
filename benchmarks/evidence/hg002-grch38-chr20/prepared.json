@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "manifest": {
+    "schema_version": 1,
+    "id": "hg002-grch38-chr20-10m-11m",
+    "sample": "HG002",
+    "analysis_scope": "calling_and_filtering_from_public_prealigned_bam",
+    "assembly": "GRCh38 no-alt analysis set (GCA_000001405.15)",
+    "truth_release": "GIAB v4.2.1",
+    "sequencing": "Illumina NovaSeq PCR-free; source BAM labeled 35x; BWA 0.7.17 and Picard duplicate marking",
+    "scoring_region": {
+      "chrom": "chr20",
+      "start": 10000000,
+      "end": 11000000,
+      "coordinate_system": "0-based half-open"
+    },
+    "padding_bases": 10000,
+    "min_qual": 30,
+    "min_depth": 10,
+    "sources": {
+      "provider": "Google DeepVariant public case-study data",
+      "provider_documentation": "https://github.com/google/deepvariant/blob/r1.8/docs/deepvariant-case-study.md",
+      "giab_release": "https://ftp.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/NISTv4.2.1/GRCh38/",
+      "alignment_note": "Existing public alignments are inputs. SeqForge FASTQ preprocessing and BWA-MEM2 alignment are not evaluated."
+    },
+    "assets": {
+      "bam": {
+        "filename": "HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam",
+        "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam?generation=1598679786489966",
+        "generation": "1598679786489966",
+        "bytes": 1093938924,
+        "md5": "8f1a541a348803e304275359ac52da57"
+      },
+      "bai": {
+        "filename": "HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam.bai",
+        "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam.bai?generation=1598679773388180",
+        "generation": "1598679773388180",
+        "bytes": 196136,
+        "md5": "4d4892f4e13adab90745877b3e01c5b6"
+      },
+      "reference": {
+        "filename": "GCA_000001405.15_GRCh38_no_alt_analysis_set.fa.gz",
+        "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/GCA_000001405.15_GRCh38_no_alt_analysis_set.fa.gz?generation=1620157892108526",
+        "generation": "1620157892108526",
+        "bytes": 886344618,
+        "md5": "3a3347eae0893f96ecf495d1c39e2284"
+      },
+      "truth_vcf": {
+        "filename": "HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+        "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz?generation=1615848467228130",
+        "generation": "1615848467228130",
+        "bytes": 156252944,
+        "md5": "dc750b3807d4af1f7ffec852e9c2f771"
+      },
+      "truth_tbi": {
+        "filename": "HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi",
+        "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi?generation=1615848467840583",
+        "generation": "1615848467840583",
+        "bytes": 1657747,
+        "md5": "121e2975fb3ff0317ae6a684d0ce6f2f"
+      },
+      "confident_bed": {
+        "filename": "HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed",
+        "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed?generation=1615848464672225",
+        "generation": "1615848464672225",
+        "bytes": 11494021,
+        "md5": "97265e922a97c69a0391cf3f92a89b8b"
+      }
+    }
+  },
+  "alignment_records": 267154,
+  "calling_region": {
+    "chrom": "chr20",
+    "start": 9990000,
+    "end": 11010000
+  },
+  "evaluated_bases": 977839,
+  "source_bam_programs": [
+    {
+      "ID": "bwa",
+      "PN": "bwa",
+      "VN": "0.7.17-r1194-dirty",
+      "CL": "bwa mem -t 32 references/grch38_bwa_index/genome.fa HG002.novaseq.pcr-free.35x.R1.fastq.gz HG002.novaseq.pcr-free.35x.R2.fastq.gz -R @RG\\tID:HG002.pcr-free\\tPL:ILLUMINA\\tPU:NONE\\tLB:HG002.pcr-free\\tSM:HG002"
+    },
+    {
+      "ID": "MarkDuplicates",
+      "VN": "Version:4.1.2.0",
+      "CL": "MarkDuplicates  --INPUT HG002.picard.dedup.bwa.bam --OUTPUT HG002.picard.dedup.bam --METRICS_FILE HG002.picard.dedup.metrics  --MAX_SEQUENCES_FOR_DISK_READ_ENDS_MAP 50000 --MAX_FILE_HANDLES_FOR_READ_ENDS_MAP 8000 --SORTING_COLLECTION_SIZE_RATIO 0.25 --TAG_DUPLICATE_SET_MEMBERS false --REMOVE_SEQUENCING_DUPLICATES false --TAGGING_POLICY DontTag --CLEAR_DT true --DUPLEX_UMI false --ADD_PG_TAG_TO_READS true --REMOVE_DUPLICATES false --ASSUME_SORTED false --DUPLICATE_SCORING_STRATEGY SUM_OF_BASE_QUALITIES --PROGRAM_RECORD_ID MarkDuplicates --PROGRAM_GROUP_NAME MarkDuplicates --READ_NAME_REGEX <optimized capture of last three ':' separated fields as numeric values> --OPTICAL_DUPLICATE_PIXEL_DISTANCE 100 --MAX_OPTICAL_DUPLICATE_SET_SIZE 300000 --VERBOSITY INFO --QUIET false --VALIDATION_STRINGENCY STRICT --COMPRESSION_LEVEL 2 --MAX_RECORDS_IN_RAM 500000 --CREATE_INDEX false --CREATE_MD5_FILE false --GA4GH_CLIENT_SECRETS client_secrets.json --help false --version false --showHidden false --USE_JDK_DEFLATER false --USE_JDK_INFLATER false",
+      "PN": "MarkDuplicates"
+    }
+  ],
+  "reference_match_evidence": "Provider assembly label and every BAM contig name/length; BAM does not contain M5 sequence hashes",
+  "commands": [
+    [
+      "samtools",
+      "faidx",
+      "<bundle>/reference/reference.fa"
+    ],
+    [
+      "samtools",
+      "dict",
+      "-o",
+      "<bundle>/reference/reference.dict",
+      "<bundle>/reference/reference.fa"
+    ],
+    [
+      "samtools",
+      "view",
+      "--no-PG",
+      "-H",
+      "<bundle>/assets/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam"
+    ],
+    [
+      "bcftools",
+      "query",
+      "-l",
+      "<bundle>/assets/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz"
+    ],
+    [
+      "samtools",
+      "view",
+      "--no-PG",
+      "-b",
+      "-o",
+      "<bundle>/reads.bam",
+      "<bundle>/assets/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam",
+      "chr20:9990001-11010000"
+    ],
+    [
+      "samtools",
+      "index",
+      "<bundle>/reads.bam"
+    ],
+    [
+      "samtools",
+      "quickcheck",
+      "-v",
+      "<bundle>/reads.bam"
+    ],
+    [
+      "bcftools",
+      "view",
+      "--no-version",
+      "--regions-overlap",
+      "1",
+      "--regions",
+      "chr20:9990001-11010000",
+      "-Oz",
+      "-o",
+      "<bundle>/truth.vcf.gz",
+      "<bundle>/assets/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz"
+    ],
+    [
+      "bcftools",
+      "index",
+      "--tbi",
+      "<bundle>/truth.vcf.gz"
+    ],
+    [
+      "samtools",
+      "view",
+      "-c",
+      "<bundle>/reads.bam"
+    ],
+    [
+      "samtools",
+      "--version"
+    ],
+    [
+      "bcftools",
+      "--version"
+    ]
+  ],
+  "preparation_versions": {
+    "samtools": "samtools 1.21\nUsing htslib 1.24\nCopyright (C) 2024 Genome Research Ltd.\n\nSamtools compilation details:\n    Features:       build=configure curses=yes \n    CC:             /opt/conda/conda-bld/samtools_1734249775320/_build_env/bin/x86_64-conda-linux-gnu-cc\n    CPPFLAGS:       -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /workspace/scratch/8c57b1190b28/tools/seqforge-env/include\n    CFLAGS:         -Wall -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /workspace/scratch/8c57b1190b28/tools/seqforge-env/include -fdebug-prefix-map=/opt/conda/conda-bld/samtools_1734249775320/work=/usr/local/src/conda/samtools-1.21 -fdebug-prefix-map=/workspace/scratch/8c57b1190b28/tools/seqforge-env=/usr/local/src/conda-prefix\n    LDFLAGS:        -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/workspace/scratch/8c57b1190b28/tools/seqforge-env/lib -Wl,-rpath-link,/workspace/scratch/8c57b1190b28/tools/seqforge-env/lib -L/workspace/scratch/8c57b1190b28/tools/seqforge-env/lib\n    HTSDIR:         \n    LIBS:           \n    CURSES_LIB:     -ltinfow -lncursesw\n\nHTSlib compilation details:\n    Features:       build=configure libcurl=yes S3=yes GCS=yes libdeflate=yes lzma=yes bzip2=yes plugins=yes plugin-path=/workspace/scratch/8c57b1190b28/tools/seqforge-env/libexec/htslib htscodecs=1.6.7\n    CC:             /opt/conda/conda-bld/htslib_1783611562234/_build_env/bin/x86_64-conda-linux-gnu-cc -std=gnu23\n    CPPFLAGS:       -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /workspace/scratch/8c57b1190b28/tools/seqforge-env/include\n    CFLAGS:         -Wall -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -fno-merge-constants -isystem /workspace/scratch/8c57b1190b28/tools/seqforge-env/include -fdebug-prefix-map=/opt/conda/conda-bld/htslib_1783611562234/work=/usr/local/src/conda/htslib-1.24 -fdebug-prefix-map=/workspace/scratch/8c57b1190b28/tools/seqforge-env=/usr/local/src/conda-prefix -fvisibility=hidden\n    LDFLAGS:        -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,--allow-shlib-undefined -Wl,-rpath,/workspace/scratch/8c57b1190b28/tools/seqforge-env/lib -Wl,-rpath-link,/workspace/scratch/8c57b1190b28/tools/seqforge-env/lib -L/workspace/scratch/8c57b1190b28/tools/seqforge-env/lib -fvisibility=hidden -rdynamic\n\nHTSlib URL scheme handlers present:\n    built-in:\t file, preload, data\n    libcurl:\t gophers, smtp, wss, rtsp, tftp, mqtts, pop3, imaps, pop3s, ws, ftps, ftp, gopher, imap, http, https, sftp, smtps, dict, scp, mqtt, telnet\n    Google Cloud Storage:\t gs+http, gs+https, gs\n    Amazon S3:\t s3+https, s3, s3+http\n    crypt4gh-needed:\t crypt4gh\n    mem:\t mem",
+    "bcftools": "bcftools 1.21\nUsing htslib 1.24\nCopyright (C) 2024 Genome Research Ltd.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+  },
+  "files": {
+    "evaluation.bed": {
+      "bytes": 3096,
+      "sha256": "6bf04aba528da7cdb0b3f77960cc515742c4f7f74c88f9de78f1777557e454fb"
+    },
+    "reads.bam": {
+      "bytes": 13918616,
+      "sha256": "73ba287aa2d800427f4c3b3b763c9c9773eaaef4a1d48dd9984bb537838b114a"
+    },
+    "reads.bam.bai": {
+      "bytes": 9584,
+      "sha256": "3cfc2457b99700296572cb7943be64921e41064afdc9a9af7a36a08584b569ca"
+    },
+    "reference/reference.dict": {
+      "bytes": 32798,
+      "sha256": "f55188e4536d32048103a94ead1b6f147f4e929118d50754c39bb82c53429198"
+    },
+    "reference/reference.fa": {
+      "bytes": 3144230986,
+      "sha256": "9cce8b926416dd96b152deea85188495b75f7ac8d634cc723a017067be8702b7"
+    },
+    "reference/reference.fa.fai": {
+      "bytes": 7804,
+      "sha256": "502a1b8fb73ccd53285c28a0f12df90c818b4fe3de1e862ef47c593ef1a0a4b4"
+    },
+    "reference/targets.bed": {
+      "bytes": 23,
+      "sha256": "295606ed864d24e494348b024ce681e65842ba40fc52d3e21694492faa1df910"
+    },
+    "truth.vcf.gz": {
+      "bytes": 65397,
+      "sha256": "98bf749b11599f5c87f70530729c1792499075818bb735b2329fbfbbb85addc1"
+    },
+    "truth.vcf.gz.tbi": {
+      "bytes": 683,
+      "sha256": "3a0f29a66d56d639e0c4e07aaa32372abc462ab5659ef14ddd8767a8bd9b9fde"
+    }
+  }
+}

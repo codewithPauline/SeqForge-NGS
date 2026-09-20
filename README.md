@@ -10,7 +10,20 @@ SeqForge-NGS is a modular Nextflow workflow for Illumina paired-end germline ana
 
 Built by **Pauline Owusu-Ansah**, Ph.D. researcher in computational and evolutionary genomics at Miami University.
 
-> **Development milestone: executable foundation.** The automated test runs real tools on two deterministic synthetic samples and checks their expected SNVs and genotypes. Human-data accuracy benchmarking, annotation, and production qualification are still planned. This is research software, not a clinically validated workflow.
+> **Development milestone: working pipeline plus a regional HG002 benchmark.** Automated tests exercise the FASTQ workflow with synthetic samples. A separate human benchmark measures GATK calling and filtering from public alignments. Annotation, full FASTQ-to-VCF human validation, and production qualification remain planned. This is research software, not a clinically validated workflow.
+
+## Measured HG002 results
+
+On **977,839 GIAB v4.2.1 confident bases** within GRCh38 chr20:10,000,001–11,000,000:
+
+| Variant type | Precision | Recall | F1 |
+|---|---|---|---|
+| SNP | 99.632% | 99.852% | 99.742% |
+| INDEL | 96.356% | 96.581% | 96.469% |
+
+These results evaluate **calling and baseline filtering from existing HG002 NovaSeq BWA/Picard alignments**. They do not measure SeqForge's upstream FASTQ processing or alignment, and do not represent genome-wide accuracy. Thresholds were fixed before evaluation; scores include all PASS calls rather than a truth-optimized operating point.
+
+[View the evidence and error counts](benchmarks/evidence/hg002-grch38-chr20/README.md) · [Reproduce the benchmark](docs/benchmark.md)
 
 ## What runs today
 
@@ -104,14 +117,15 @@ The baseline filter marks records with QUAL < 30, sample DP < 10, or missing QUA
 | Modular FASTQ → GATK VCF workflow and QC reporting | Implemented |
 | Input validation and deterministic two-sample integration fixture | Implemented |
 | Docker recipe, Linux dependency lock, and GitHub Actions | Implemented |
-| Human HG002 dataset with matched GIAB truth and confident regions | Planned |
-| Genotype-aware SNP/indel benchmarking and published metrics | Planned |
+| HG002 regional input with matched GIAB truth and confident regions | Implemented, starting from public alignments |
+| Genotype-aware SNP/indel benchmarking and published metrics | Implemented with RTG vcfeval |
+| Full FASTQ-to-VCF human accuracy benchmark | Planned |
 | BQSR and a benchmark-supported filtering strategy | Planned |
 | VEP annotation with pinned cache/assembly provenance | Planned |
 | Multi-lane samples, scatter/gather, and measured HPC scaling | Planned |
 | DeepVariant backend and versioned software release | Planned |
 
-See the [validation plan](docs/validation.md) for the evidence required before reporting precision, recall, or F1. No human benchmark scores are claimed yet.
+See the [validation overview](docs/validation.md) and [benchmark protocol](docs/benchmark.md) for the scope and evidence behind the regional scores.
 
 ## Development and citation
 

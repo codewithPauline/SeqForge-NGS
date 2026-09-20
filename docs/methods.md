@@ -20,7 +20,7 @@ The reference is shared through a Nextflow value channel, so every sample receiv
 - No functional annotation yet. VEP requires a versioned cache and assembly-matched resources.
 - No read-depth coverage gate, contamination estimate, sample fingerprinting, or clinical interpretation.
 - No simulated INDEL test in this first fixture: the caller supports small indels, but this milestone's expected-call integration assertions exercise SNVs only.
-- No human benchmarking or measured cluster-scale performance yet.
+- A separate HG002 regional benchmark now evaluates calling/filtering from public alignments. Full upstream human validation and measured cluster-scale performance remain pending.
 
 ## Primary documentation
 
