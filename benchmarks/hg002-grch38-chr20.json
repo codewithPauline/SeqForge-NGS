@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "id": "hg002-grch38-chr20-10m-11m",
+  "sample": "HG002",
+  "analysis_scope": "calling_and_filtering_from_public_prealigned_bam",
+  "assembly": "GRCh38 no-alt analysis set (GCA_000001405.15)",
+  "truth_release": "GIAB v4.2.1",
+  "sequencing": "Illumina NovaSeq PCR-free; source BAM labeled 35x; BWA 0.7.17 and Picard duplicate marking",
+  "scoring_region": {
+    "chrom": "chr20",
+    "start": 10000000,
+    "end": 11000000,
+    "coordinate_system": "0-based half-open"
+  },
+  "padding_bases": 10000,
+  "min_qual": 30,
+  "min_depth": 10,
+  "sources": {
+    "provider": "Google DeepVariant public case-study data",
+    "provider_documentation": "https://github.com/google/deepvariant/blob/r1.8/docs/deepvariant-case-study.md",
+    "giab_release": "https://ftp.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/AshkenazimTrio/HG002_NA24385_son/NISTv4.2.1/GRCh38/",
+    "alignment_note": "Existing public alignments are inputs. SeqForge FASTQ preprocessing and BWA-MEM2 alignment are not evaluated."
+  },
+  "assets": {
+    "bam": {
+      "filename": "HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam",
+      "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam?generation=1598679786489966",
+      "generation": "1598679786489966",
+      "bytes": 1093938924,
+      "md5": "8f1a541a348803e304275359ac52da57"
+    },
+    "bai": {
+      "filename": "HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam.bai",
+      "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.chr20.bam.bai?generation=1598679773388180",
+      "generation": "1598679773388180",
+      "bytes": 196136,
+      "md5": "4d4892f4e13adab90745877b3e01c5b6"
+    },
+    "reference": {
+      "filename": "GCA_000001405.15_GRCh38_no_alt_analysis_set.fa.gz",
+      "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/GCA_000001405.15_GRCh38_no_alt_analysis_set.fa.gz?generation=1620157892108526",
+      "generation": "1620157892108526",
+      "bytes": 886344618,
+      "md5": "3a3347eae0893f96ecf495d1c39e2284"
+    },
+    "truth_vcf": {
+      "filename": "HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+      "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz?generation=1615848467228130",
+      "generation": "1615848467228130",
+      "bytes": 156252944,
+      "md5": "dc750b3807d4af1f7ffec852e9c2f771"
+    },
+    "truth_tbi": {
+      "filename": "HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi",
+      "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi?generation=1615848467840583",
+      "generation": "1615848467840583",
+      "bytes": 1657747,
+      "md5": "121e2975fb3ff0317ae6a684d0ce6f2f"
+    },
+    "confident_bed": {
+      "filename": "HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed",
+      "url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002_GRCh38_1_22_v4.2.1_benchmark_noinconsistent.bed?generation=1615848464672225",
+      "generation": "1615848464672225",
+      "bytes": 11494021,
+      "md5": "97265e922a97c69a0391cf3f92a89b8b"
+    }
+  }
+}
